@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RapidCSS - Lightweight Responsive CSS Framework</title>
+    <link rel="stylesheet" href="rapid-v1.0.css">
+    <style>
+        :root {
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .hero-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.1"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+        }
+        
+        .code-block {
+            background: #1a1a1a;
+            color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 4px solid #007bff;
+        }
+        
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            border: 1px solid #e9ecef;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #343a40;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            transition: all 0.15s ease-in-out;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: #f8f9fa;
+            color: #007bff;
+            border-left-color: #007bff;
+        }
+        
+        .component-demo {
+            border: 2px dashed #dee2e6;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            background: #f8f9fa;
+        }
+        
+        .browser-window {
+            border: 2px solid #dee2e6;
+            border-radius: 0.5rem 0.5rem 0 0;
+            margin: 2rem 0;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        
+        .browser-header {
+            background: #f1f3f4;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .browser-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .browser-dot.red { background: #ff5f57; }
+        .browser-dot.yellow { background: #ffbd2e; }
+        .browser-dot.green { background: #28ca42; }
+        
+        .browser-content {
+            padding: 2rem;
+            background: white;
+        }
+        
+        .docs-section {
+            margin-bottom: 4rem;
+        }
+        
+        @media (max-width: 767.98px) {
+            .hero-section {
+                padding: 3rem 0;
+                text-align: center;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+            
+            .navbar-nav {
+                margin-top: 1rem;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            border-collapse: collapse;
+        }
+        
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .pricing-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+        }
+        
+        .pricing-list li {
+            padding: 0.5rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-container">
+                <a href="#" class="navbar-brand">RapidCSS</a>
+                <div class="navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="#examples" class="btn btn-sm btn-primary">Examples</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container hero-content">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-8">
+                    <h1 class="mb-3">Build Fast, Responsive Sites with RapidCSS</h1>
+                    <p class="lead mb-4">A lightweight, mobile-first CSS framework for modern web development.</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="#installation" class="btn btn-primary btn-lg">Get Started</a>
+                        <a href="https://github.com/MrMahmoodi-Homayoun/RapidCSS" class="btn btn-outline-light btn-lg">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 mt-4 mt-lg-0 text-center">
+                    <div class="feature-icon">🚀</div>
+                    <p class="text-light">Lightning Fast • Mobile First • Easy to Use</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 col-lg-3 mb-4">
+                <div class="sidebar">
+                    <h5 class="mb-3">Documentation</h5>
+                    <ul class="sidebar-nav">
+                        <li><a href="#introduction" class="active">Introduction</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#grid-system">Grid System</a></li>
+                        <li><a href="#components">Components</a></li>
+                        <li><a href="#utilities">Utility Classes</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#customization">Customization</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-9">
+                <section id="introduction" class="docs-section">
+                    <h2 class="mb-4">Introduction</h2>
+                    <p class="lead">RapidCSS is a lightweight, mobile-first CSS framework designed for rapid prototyping and modern web development.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12 col-md-4 text-center mb-4">
+                            <div class="feature-icon">📱</div>
+                            <h4>Mobile First</h4>
+                            <p>Built with a mobile-first approach that scales elegantly to desktop.</p>
+                        </div>
+                        <div class="col-12 col-md-4 text-center mb-4">
+                            <div class="feature-icon">⚡</div>
+                            <h4>Lightweight</h4>
+                            <p>Only 6KB gzipped. No bloat, just essential components.</p>
+                        </div>
+                        <div class="col-12 col-md-4 text-center mb-4">
+                            <div class="feature-icon">🎨</div>
+                            <h4>Customizable</h4>
+                            <p>Easy to customize with CSS variables and SASS support.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="installation" class="docs-section">
+                    <h2 class="mb-4">Installation</h2>
+                    
+                    <h4 class="mt-4">Method 1: Download</h4>
+                    <p>Download the CSS file and include it in your project:</p>
+                    <div class="code-block">
+&lt;link rel="stylesheet" href="rapid-v1.0.css"&gt;
+                    </div>
+                    
+                    <h4 class="mt-4">Starter Template</h4>
+                    <div class="code-block">
+&lt;!DOCTYPE html&gt; 
+&lt;html lang="en"&gt; 
+&lt;head&gt; 
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My RapidCSS Project&lt;/title&gt; 
+    &lt;link rel="stylesheet" href="rapid.css"&gt; 
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;nav class="navbar"&gt;
+        &lt;div class="container"&gt;
+            &lt;a href="#" class="navbar-brand"&gt;My Site&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+    
+    &lt;div class="container mt-4"&gt;
+        &lt;h1&gt;Hello, RapidCSS!&lt;/h1&gt;
+        &lt;p&gt;Start building your amazing project.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </section>
+
+                <section id="grid-system" class="docs-section">
+                    <h2 class="mb-4">Grid System</h2>
+                    <p>RapidCSS uses a flexible 12-column grid system with mobile-first breakpoints.</p>
+                    
+                    <h4 class="mt-4">Basic Grid Example</h4>
+                    <div class="component-demo">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5>.col-12 .col-md-6 .col-lg-3</h5>
+                                        <p>Full width on mobile, half on tablet, quarter on desktop</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5>.col-12 .col-md-6 .col-lg-3</h5>
+                                        <p>Full width on mobile, half on tablet, quarter on desktop</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5>.col-12 .col-md-6 .col-lg-3</h5>
+                                        <p>Full width on mobile, half on tablet, quarter on desktop</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5>.col-12 .col-md-6 .col-lg-3</h5>
+                                        <p>Full width on mobile, half on tablet, quarter on desktop</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="code-block">
+&lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-12 col-md-6 col-lg-3"&gt;
+            &lt;div class="card"&gt;
+                &lt;div class="card-body"&gt;
+                    Content here
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- Repeat for other columns --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </div>
+                    
+                    <h4 class="mt-4">Breakpoints</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Breakpoint</th>
+                                            <th>Class Prefix</th>
+                                            <th>Dimensions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Extra Small</td>
+                                            <td><code>.col-</code></td>
+                                            <td>&lt; 576px</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Small</td>
+                                            <td><code>.col-sm-</code></td>
+                                            <td>≥ 576px</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Medium</td>
+                                            <td><code>.col-md-</code></td>
+                                            <td>≥ 768px</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Large</td>
+                                            <td><code>.col-lg-</code></td>
+                                            <td>≥ 992px</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Extra Large</td>
+                                            <td><code>.col-xl-</code></td>
+                                            <td>≥ 1200px</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="components" class="docs-section">
+                    <h2 class="mb-4">Components</h2>
+                    
+                    <h4 class="mt-4">Buttons</h4>
+                    <div class="component-demo">
+                        <button class="btn btn-primary mr-2">Primary Button</button>
+                        <button class="btn btn-secondary mr-2">Secondary Button</button>
+                        <button class="btn btn-primary btn-sm mr-2">Small Button</button>
+                        <button class="btn btn-primary btn-lg">Large Button</button>
+                    </div>
+                    <div class="code-block">
+&lt;button class="btn btn-primary"&gt;Primary Button&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Secondary Button&lt;/button&gt;
+&lt;button class="btn btn-primary btn-sm"&gt;Small Button&lt;/button&gt;
+&lt;button class="btn btn-primary btn-lg"&gt;Large Button&lt;/button&gt;
+                    </div>
+                    
+                    <h4 class="mt-4">Cards</h4>
+                    <div class="component-demo">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Basic Card</h5>
+                                        <p class="card-text">This is a basic card with some example content.</p>
+                                        <button class="btn btn-primary mt-3">Learn More</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Featured
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card with Header</h5>
+                                        <p class="card-text">Card with header and footer sections.</p>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        2 days ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-block">
+&lt;div class="card"&gt;
+    &lt;div class="card-body"&gt;
+        &lt;h5 class="card-title"&gt;Card Title&lt;/h5&gt;
+        &lt;p class="card-text"&gt;Card content goes here.&lt;/p&gt;
+        &lt;button class="btn btn-primary mt-3"&gt;Action&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </div>
+                </section>
+
+                <section id="utilities" class="docs-section">
+                    <h2 class="mb-4">Utility Classes</h2>
+                    <p>RapidCSS includes a comprehensive set of utility classes for spacing, text alignment, display properties, and more.</p>
+                    
+                    <h4 class="mt-4">Spacing Utilities</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <p>Use margin and padding utilities to control spacing:</p>
+                            <div class="code-block">
+&lt;div class="mt-3"&gt;Margin top&lt;/div&gt;
+&lt;div class="mb-3"&gt;Margin bottom&lt;/div&gt;
+&lt;div class="ml-3"&gt;Margin left&lt;/div&gt;
+&lt;div class="mr-3"&gt;Margin right&lt;/div&gt;
+&lt;div class="p-3"&gt;Padding all sides&lt;/div&gt;
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4 class="mt-4">Text Utilities</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <p>Control text alignment, weight, and color:</p>
+                            <div class="code-block">
+&lt;p class="text-left"&gt;Left aligned text&lt;/p&gt;
+&lt;p class="text-center"&gt;Center aligned text&lt;/p&gt;
+&lt;p class="text-right"&gt;Right aligned text&lt;/p&gt;
+&lt;p class="font-weight-bold"&gt;Bold text&lt;/p&gt;
+&lt;p class="text-primary"&gt;Primary colored text&lt;/p&gt;
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="examples" class="docs-section">
+                    <h2 class="mb-4">Examples</h2>
+                    
+                    <h4 class="mt-4">Pricing Section</h4>
+                    <div class="browser-window">
+                        <div class="browser-header">
+                            <div class="browser-dots">
+                                <div class="browser-dot red"></div>
+                                <div class="browser-dot yellow"></div>
+                                <div class="browser-dot green"></div>
+                            </div>
+                            <span class="ml-2">Pricing Example</span>
+                        </div>
+                        <div class="browser-content">
+                            <div class="row">
+                                <div class="col-12 col-md-4 mb-4">
+                                    <div class="card text-center h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Basic</h5>
+                                            <h2 class="my-3 mb-4">$9<span class="text-muted">/mo</span></h2>
+                                            <ul class="pricing-list">
+                                                <li>10 Projects</li>
+                                                <li>5GB Storage</li>
+                                                <li>Basic Support</li>
+                                            </ul>
+                                            <button class="btn btn-primary btn-block">Get Started</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 mb-4">
+                                    <div class="card text-center h-100 border-primary">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pro</h5>
+                                            <h2 class="my-3 mb-4">$19<span class="text-muted">/mo</span></h2>
+                                            <ul class="pricing-list">
+                                                <li>50 Projects</li>
+                                                <li>50GB Storage</li>
+                                                <li>Priority Support</li>
+                                            </ul>
+                                            <button class="btn btn-primary btn-block">Get Started</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 mb-4">
+                                    <div class="card text-center h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Enterprise</h5>
+                                            <h2 class="my-3 mb-4">$49<span class="text-muted">/mo</span></h2>
+                                            <ul class="pricing-list">
+                                                <li>Unlimited Projects</li>
+                                                <li>500GB Storage</li>
+                                                <li>24/7 Support</li>
+                                            </ul>
+                                            <button class="btn btn-primary btn-block">Get Started</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="customization" class="docs-section">
+                    <h2 class="mb-4">Customization</h2>
+                    <p>RapidCSS is designed to be easily customizable to match your brand identity.</p>
+                    
+                    <h4 class="mt-4">CSS Variables</h4>
+                    <p>Override the default CSS variables to customize the appearance:</p>
+                    <div class="code-block">
+:root {
+    --primary: #your-color;
+    --secondary: #your-color;
+    --success: #your-color;
+    --danger: #your-color;
+    --warning: #your-color;
+    --info: #your-color;
+    --light: #your-color;
+    --dark: #your-color;
+    --white: #your-color;
+    --border: #your-color;
+    --radius: 0.5rem;
+    --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+                    </div>
+                    
+                    <h4 class="mt-4">Creating Custom Components</h4>
+                    <p>Extend RapidCSS with your own custom components:</p>
+                    <div class="code-block">
+/* Custom alert component */
+.alert {
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+                    </div>
+                    
+                    <h4 class="mt-4">SASS Customization</h4>
+                    <p>If you're using SASS, you can customize the framework by modifying the source variables:</p>
+                    <div class="code-block">
+// Override SASS variables
+$primary: #your-color;
+$secondary: #your-color;
+$border-radius: 0.5rem;
+
+// Import RapidCSS
+@import "rapid";
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white mt-5 py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-2">RapidCSS © 2025 - Created with ❤️ by Homayoun for you</p>
+                    <p class="text-muted">Lightweight, responsive, and built for modern web development.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        console.log('🚀 Welcome to RapidCSS Documentation!');
+        console.log('📖 Explore the features and examples to get started.');
+        console.log('💡 Tip: Resize your browser to see the responsive grid in action!');
+    </script>
+</body>
+</html>
