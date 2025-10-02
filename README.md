@@ -1,7 +1,5 @@
 # RapidCSS
 
-# RapidCSS
-
 A lightweight, mobile-first CSS framework for modern web development. Built with simplicity and performance in mind.
 
 ## Features
@@ -12,6 +10,7 @@ A lightweight, mobile-first CSS framework for modern web development. Built with
 - Easy customization
 
 ## Documentation : https://mrmahmoodi-homayoun.github.io/RapidCSS
+
 ## Quick Start
 ```html
 <link rel="stylesheet" href="rapid.css">
