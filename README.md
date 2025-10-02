@@ -13,7 +13,7 @@ A lightweight, mobile-first CSS framework for modern web development. Built with
 
 ## Quick Start
 ```html
-<link rel="stylesheet" href="rapid.css">
+<link rel="stylesheet" href="rapid-v1.0.css">
 
 
  
